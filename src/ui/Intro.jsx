@@ -7,6 +7,8 @@ import { SCENES, SCENE_MAP, DEFAULT_SCENE } from '../data/scenes'
 import { BIKES } from '../data/bikes'
 import { PLAYLIST } from '../data/playlist'
 
+const NUMBER_WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten']
+
 export default function Intro() {
   const loading = useStore((s) => s.loading)
   const sceneReady = useStore((s) => s.sceneReady)
@@ -48,7 +50,7 @@ export default function Intro() {
         </div>
         <p className="i-fade mt-6 font-serif text-[clamp(20px,2.4vw,28px)] text-white/90 italic">Raaste apne, andaaz apna.</p>
         <p className="i-fade mt-3 max-w-[460px] text-[15px] leading-relaxed text-white/60">
-          Painted roads across India, three motorcycles and your road-trip playlist. Pick a scene, pick a bike and ride.
+          Painted roads across India, {NUMBER_WORDS[BIKES.length] ?? BIKES.length} motorcycles and your road-trip playlist. Pick a scene, pick a bike and ride.
         </p>
 
         <button

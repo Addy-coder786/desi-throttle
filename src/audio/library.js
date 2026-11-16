@@ -1,8 +1,6 @@
-// Your own song files, for full-length playback.
-// Two ways to provide them:
-//   1. Add them in the site (Playlist → "Add your song files"). They're kept in
-//      this browser (IndexedDB) and never uploaded anywhere.
-//   2. Put them in public/music/ named 01.mp3 … 15.mp3 (playlist order).
+// Your own song files, for full-length playback. Added in the site
+// (Playlist → "Add song files"), kept in this browser (IndexedDB) and never
+// uploaded anywhere.
 import { PLAYLIST } from '../data/playlist'
 
 const DB = 'desi-throttle-music'
@@ -52,18 +50,6 @@ export const library = {
     } catch {
       /* storage unavailable (private mode): fine */
     }
-    // files shipped with the site in public/music/NN.mp3
-    await Promise.all(
-      PLAYLIST.filter((t) => !urls.has(t.n)).map(async (t) => {
-        const url = `/music/${t.num}.mp3`
-        try {
-          const r = await fetch(url, { method: 'HEAD' })
-          if (r.ok && (r.headers.get('content-type') || '').startsWith('audio')) urls.set(t.n, url)
-        } catch {
-          /* not there */
-        }
-      }),
-    )
     return this.ids()
   },
 

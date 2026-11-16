@@ -1,10 +1,8 @@
-// Scene stills feeding the backdrop shader, with a soft crossfade between
-// scenes. (Scenes are still moments now: no moving road.)
+// Scene images feeding the backdrop shader, with a soft crossfade between
+// scenes. The images are already painted (baked by tools/bake.html).
 import * as THREE from 'three'
 import { backdrop } from './backdrop'
 import { useStore } from '../store'
-import { stage } from './handle'
-import { prepaint } from './prepaint'
 
 const loader = new THREE.TextureLoader()
 const cache = new Map()
@@ -67,14 +65,12 @@ export const footage = {
   token: 0,
   last: performance.now(),
 
-  /** `src` is the image to show for this scene (still or painted artwork). */
-  async show(scene, src, { paint = true } = {}) {
+  /** `src` is the image to show for this scene (baked painting or your own artwork). */
+  async show(scene, src) {
     const u = backdrop.uniforms
     const token = ++this.token
-    let tex = await loadTexture(src)
+    const tex = await loadTexture(src)
     if (token !== this.token) return
-    // paint the still once on the GPU; the live layer animates the painting
-    if (tex && paint && stage.gl) tex = prepaint(stage.gl, tex)
     if (!tex) {
       useStore.getState().setLoading({ label: 'Could not load this scene' })
       return

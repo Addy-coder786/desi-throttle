@@ -1,6 +1,6 @@
 // Paints a scene still ONCE on the GPU (anisotropic Kuwahara + ink lines) and
-// returns the painted texture. The living-picture layer then animates on top
-// of the painting every frame, which is far cheaper than repainting.
+// returns the render target holding the painting (used by tools/bake.js to bake
+// the painted scene images in public/scenes/).
 import * as THREE from 'three'
 
 const frag = /* glsl */ `
@@ -120,6 +120,6 @@ export function prepaint(renderer, texture, { brush = 2.6, ink = 0.1, amount = 0
   renderer.setRenderTarget(prev)
   mat.dispose()
   quad.geometry.dispose()
-  cache.set(texture.uuid, rt.texture)
-  return rt.texture
+  cache.set(texture.uuid, rt)
+  return rt
 }

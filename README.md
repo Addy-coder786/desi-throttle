@@ -21,6 +21,8 @@ Pick from six bikes (Royal Enfield Classic 350, Himalayan 450 and Continental GT
 | `Space` / `N` | Play/pause music, next song |
 | `H` / `F` | Hide controls, fullscreen |
 
+On phones and tablets, on-screen **throttle**, **brake** and **lean** buttons replace the keys.
+
 ## Run locally
 
 ```bash

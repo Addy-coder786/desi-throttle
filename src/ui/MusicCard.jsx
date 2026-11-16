@@ -47,9 +47,15 @@ export default function MusicCard() {
   }, [])
   const t = PLAYLIST[m.index]
   const file = m.source === 'file'
+  // on touch screens the card sits at the top (the riding controls are at the bottom) and
+  // fades with the rest of the controls; on desktop it stays while music plays
+  const touch = document.documentElement.classList.contains('touch')
 
   return (
-    <section aria-label="Music" className={`pointer-events-auto fixed right-4 bottom-[88px] z-20 w-[min(360px,calc(100vw-32px))] sm:right-7 sm:bottom-[90px] max-sm:bottom-[72px] ${m.playing ? '' : 'fadeable'}`}>
+    <section
+      aria-label="Music"
+      className={`pointer-events-auto fixed right-4 bottom-[88px] z-20 w-[min(360px,calc(100vw-32px))] sm:right-7 sm:bottom-[90px] touch:bottom-auto touch:sm:top-[76px] max-sm:top-[112px] max-sm:bottom-auto ${m.playing && !touch ? '' : 'fadeable'}`}
+    >
       <div className="surface rounded-[22px] p-2.5">
         <div className="relative h-20 overflow-hidden rounded-[12px] bg-black/30">
           {/* Spotify's own compact player (album cover, title, artist); kept mounted */}
@@ -99,11 +105,11 @@ export default function MusicCard() {
             <ChevronUp size={20} />
           </button>
         </div>
-        <div className="collapsible px-1.5 pt-0.5">
+        <div className="collapsible px-1.5 pt-0.5 touch:hidden">
           <Seek />
         </div>
         {!file && m.preview && (
-          <div className="collapsible mt-1.5 flex items-center gap-2 rounded-xl bg-white/6 px-3 py-2">
+          <div className="collapsible mt-1.5 flex items-center gap-2 rounded-xl bg-white/6 px-3 py-2 touch:hidden">
             <p className="min-w-0 flex-1 text-[12px] leading-snug text-white/70">
               <span className="font-semibold text-white">30-sec preview.</span> Log in to Spotify for full songs.
             </p>

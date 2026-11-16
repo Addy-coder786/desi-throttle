@@ -20,8 +20,8 @@ export const ARTWORK = {
 
 export function artworkFor(sceneId, bikeId) {
   const full = ARTWORK[`${sceneId}/${bikeId}`]
-  if (full) return { src: full, full: true, painted: true }
+  if (full) return { src: full, full: true }
   const scenery = ARTWORK[sceneId]
-  if (scenery) return { src: scenery, full: false, painted: true }
+  if (scenery) return { src: scenery, full: false }
   return null
 }

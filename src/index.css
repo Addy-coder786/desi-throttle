@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 
 @custom-variant short (@media (max-height: 560px));
+/* touch screens (no keyboard): on-screen riding controls, compact music card */
+@custom-variant touch (&:where(.touch, .touch *));
 
 @theme {
   --color-ink: #0b0b0d;

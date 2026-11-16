@@ -248,9 +248,11 @@ class Sound {
   async setWeather(w) {
     if (!this.init()) return
     this.weather = w
-    const rain = await this.buffer('/sounds/amb-rain.mp3', [1, 42], 0.12)
-    if (rain && w === 'rain') this.rain.play(rain, 'rain')
     this.rain.level(w === 'rain' ? 0.55 : 0, 1.2)
+    if (w !== 'rain') return
+    // only downloaded once it actually rains
+    const rain = await this.buffer('/sounds/amb-rain.mp3', [1, 42], 0.12)
+    if (rain && this.weather === 'rain') this.rain.play(rain, 'rain')
   }
 
   // per frame

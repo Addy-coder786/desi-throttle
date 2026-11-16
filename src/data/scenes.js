@@ -8,7 +8,7 @@ const OVERCAST = { color: '#eef1f4', intensity: 0.9, dir: [0.1, 1.4, -0.2], sky:
 const MIST = { color: '#e9edf0', intensity: 0.45, dir: [0, 1.4, -0.3], sky: '#e3e7ea', ground: '#4f524f', fill: 0.6 }
 const SNOW = { color: '#f6f8fb', intensity: 1.5, dir: [0.2, 1.3, -0.4], sky: '#e8eef6', ground: '#c9cdd2', fill: 0.6 }
 
-const wind = (gain = 0.45) => ({ src: '/sounds/amb-mountain-wind.mp3', loop: [24, 46], gain })
+const wind = (gain = 0.45) => ({ src: '/sounds/amb-mountain-wind.mp3', loop: [0.984, 22.984], gain })
 const river = (gain = 0.3) => ({ src: '/sounds/amb-river.mp3', loop: [2, 48], gain })
 const birds = (gain = 0.45) => ({ src: '/sounds/amb-birds.mp3', loop: [2, 60], gain })
 
@@ -21,7 +21,7 @@ export const SCENES = [
     hindi: 'लद्दाख़',
     place: 'Along Pangong Tso, Ladakh',
     time: 'Midday · high-altitude sun',
-    still: '/scenes/ladakh-1-still.jpg',
+    still: '/scenes/ladakh-pangong.jpg',
     poster: '/scenes/ladakh-pangong-painted.jpg',
     light: SUN_HIGH,
     grade: [1.0, 1.04, 1.04, 0.06],
@@ -38,7 +38,7 @@ export const SCENES = [
     hindi: 'लेह',
     place: 'Mountain highway, Leh–Ladakh',
     time: 'Afternoon · deep blue sky',
-    still: '/scenes/ladakh-2-still.jpg',
+    still: '/scenes/ladakh-leh.jpg',
     poster: '/scenes/ladakh-leh-painted.jpg',
     light: SUN_HIGH,
     grade: [1.0, 1.03, 1.02, 0.04],
@@ -56,7 +56,7 @@ export const SCENES = [
     hindi: 'नुब्रा',
     place: 'Nubra Valley, Ladakh',
     time: 'Overcast · snow on the peaks',
-    still: '/scenes/ladakh-3-still.jpg',
+    still: '/scenes/ladakh-nubra.jpg',
     poster: '/scenes/ladakh-nubra-painted.jpg',
     light: OVERCAST,
     grade: [1.02, 1.05, 1.0, 0.02],
@@ -74,7 +74,7 @@ export const SCENES = [
     hindi: 'स्पीति',
     place: 'Spiti Valley, Himachal Pradesh',
     time: 'Overcast · walls of snow',
-    still: '/scenes/spiti-1-still.jpg',
+    still: '/scenes/spiti.jpg',
     poster: '/scenes/spiti-painted.jpg',
     light: SNOW,
     grade: [0.98, 1.06, 1.0, 0.0],
@@ -96,7 +96,7 @@ export const SCENES = [
     hindi: 'मनाली–केलांग',
     place: 'Leh–Manali Highway, Himachal Pradesh',
     time: 'Bright day · snow walls',
-    still: '/scenes/himachal-2-still.jpg',
+    still: '/scenes/manali-keylong.jpg',
     poster: '/scenes/manali-keylong-painted.jpg',
     light: SNOW,
     grade: [0.97, 1.05, 1.05, 0.02],
@@ -114,7 +114,7 @@ export const SCENES = [
     hindi: 'रोहतांग',
     place: 'Road to Rohtang Pass, Himachal Pradesh',
     time: 'Thick mountain mist',
-    still: '/scenes/himachal-1-still.jpg',
+    still: '/scenes/rohtang-mist.jpg',
     poster: '/scenes/rohtang-mist-painted.jpg',
     light: MIST,
     grade: [1.0, 1.08, 0.95, -0.02],
@@ -131,7 +131,7 @@ export const SCENES = [
     hindi: 'चिकमगलूर',
     place: 'Kadur–Chikmagalur road, Karnataka',
     time: 'Monsoon greens · broken cloud',
-    still: '/scenes/ghats-1-still.jpg',
+    still: '/scenes/chikmagalur.jpg',
     poster: '/scenes/chikmagalur-painted.jpg',
     light: SUN_SOFT,
     grade: [1.0, 1.06, 1.08, 0.03],

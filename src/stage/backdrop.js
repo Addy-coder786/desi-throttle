@@ -115,6 +115,14 @@ vec3 sceneAt(vec2 uv){
   vec3 b = grade(liveTex(uB, uv * uCropB.xy + uCropB.zw, uSkyB, uFxB), uGradeB);
   return mix(a, b, uMix);
 }
+// the picture without the living layer: for blur taps, mirrors and reflections
+// (keeps shaders small; a full sceneAt() inlined many times takes ages to compile)
+vec3 sceneFlat(vec2 uv){
+  vec3 a = grade(texture2D(uA, uv * uCropA.xy + uCropA.zw).rgb, uGradeA);
+  if (uMix <= 0.001) return a;
+  vec3 b = grade(texture2D(uB, uv * uCropB.xy + uCropB.zw).rgb, uGradeB);
+  return mix(a, b, uMix);
+}
 `
 
 const VERT = /* glsl */ `
@@ -223,18 +231,16 @@ void main(){
     wet = clamp(b1.z + b2.z * 0.7 + s1.z, 0.0, 1.0);
   }
 
-  vec3 col;
+  vec3 col = sceneAt(uv);
   if (uRain > 0.01) {
     // visor film: soften the world a little, drops show a sharper, flipped image
     vec2 px = 1.4 / uRes;
-    vec3 soft = (sceneAt(uv + off + px * vec2(2.0, 0.0)) + sceneAt(uv + off - px * vec2(2.0, 0.0)) +
-                 sceneAt(uv + off + px * vec2(0.0, 2.0)) + sceneAt(uv + off - px * vec2(0.0, 2.0))) * 0.25;
-    vec3 sharp = sceneAt(uv + off * 6.0);
-    col = mix(mix(sceneAt(uv), soft, uRain * 0.85), sharp * 1.06, wet);
+    vec3 soft = col * 0.2 + (sceneFlat(uv + off + px * vec2(2.0, 0.0)) + sceneFlat(uv + off - px * vec2(2.0, 0.0)) +
+                             sceneFlat(uv + off + px * vec2(0.0, 2.0)) + sceneFlat(uv + off - px * vec2(0.0, 2.0))) * 0.2;
+    vec3 sharp = sceneFlat(uv + off * 6.0);
+    col = mix(mix(col, soft, uRain * 0.85), sharp * 1.06, wet);
     col += wet * 0.05;
     col *= 1.0 - uRain * 0.12;
-  } else {
-    col = sceneAt(uv);
   }
 
   // a few birds crossing the sky
@@ -289,7 +295,7 @@ export function createMirrorMaterial(side) {
         vec2 uv = vec2(1.0 - vUv.x, vUv.y);
         uv = vec2(0.5 + uSide * 0.16 + (uv.x - 0.5) * 0.42, 0.42 + (uv.y - 0.5) * 0.42);
         vec2 px = vec2(0.004, 0.006);
-        vec3 c = (sceneAt(uv) * 2.0 + sceneAt(uv + px) + sceneAt(uv - px) + sceneAt(uv + px.yx) + sceneAt(uv - px.yx)) / 6.0;
+        vec3 c = (sceneFlat(uv) * 2.0 + sceneFlat(uv + px) + sceneFlat(uv - px) + sceneFlat(uv + px.yx) + sceneFlat(uv - px.yx)) / 6.0;
         vec2 e = vUv - 0.5;
         c *= (1.0 - dot(e, e) * 1.6) * 0.82;
         c = mix(c, vec3(dot(c, vec3(0.3, 0.59, 0.11))), 0.15);
@@ -349,7 +355,7 @@ export function createVideoEnvMaterial() {
         float fy = a > 1.75 ? (3.14159 - a) * sign(yaw) : yaw;
         float u = 0.5 + fy / 3.5;
         float v = clamp(0.5 + pitch / 1.4, 0.02, 0.98);
-        vec3 c = sceneAt(vec2(clamp(u, 0.02, 0.98), v));
+        vec3 c = sceneFlat(vec2(clamp(u, 0.02, 0.98), v));
         // above the frame: carry the sky colour upwards, slightly brighter
         c *= 1.0 + smoothstep(0.3, 1.2, pitch) * 0.25;
         gl_FragColor = vec4(pow(max(c, 0.0), vec3(2.2)), 1.0); // environment maps are linear

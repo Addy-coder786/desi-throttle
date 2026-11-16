@@ -12,6 +12,7 @@ import { ride } from '../stage/ride'
 import MusicCard from './MusicCard'
 import Panels from './Panels'
 import TitleCard from './TitleCard'
+import TouchControls from './TouchControls'
 
 const ICONS = { sun: Sun, sunrise: Sunrise, sunset: Sunset, moon: Moon, rain: CloudRain, fog: CloudFog }
 // riding keys → ride input flags; they don't wake the auto-hidden controls
@@ -164,7 +165,7 @@ function StatusCards() {
   const T = TIME_MAP[time]
   const close = () => setOpen(null)
   return (
-    <section aria-label="Ride settings" className="fadeable pointer-events-auto fixed bottom-[104px] left-4 z-20 w-[236px] sm:left-7 short:bottom-24 max-sm:top-[64px] max-sm:right-4 max-sm:bottom-auto max-sm:w-auto">
+    <section aria-label="Ride settings" className="fadeable pointer-events-auto fixed bottom-[104px] left-4 z-20 w-[236px] sm:left-7 short:bottom-24 touch:sm:bottom-[148px] max-sm:top-[64px] max-sm:right-4 max-sm:bottom-auto max-sm:w-auto">
       <div className="surface relative divide-y divide-white/8 overflow-visible rounded-2xl max-sm:flex max-sm:divide-x max-sm:divide-y-0">
         <div className="relative first:[&>button]:rounded-t-2xl last:[&>button]:rounded-b-2xl max-sm:min-w-0 max-sm:flex-1">
           <StatusRow icon={MapPin} kicker="Location" value={scene.region} onClick={() => setOpen(open === 'loc' ? null : 'loc')} expanded={open === 'loc'} />
@@ -223,7 +224,7 @@ function TripPill() {
     return () => clearInterval(id)
   }, [])
   return (
-    <div className="fadeable pointer-events-none fixed bottom-6 left-4 z-20 sm:left-7 max-sm:hidden">
+    <div className="fadeable pointer-events-none fixed bottom-6 left-4 z-20 sm:left-7 max-sm:hidden touch:hidden">
       <div className="surface flex items-center gap-5 rounded-2xl px-4 py-3">
         <div className="flex items-center gap-3">
           <Mountain size={20} className="text-white/70" strokeWidth={1.7} />
@@ -249,7 +250,13 @@ function Actions() {
   const headlight = useStore((s) => s.headlight)
   const openPanel = useStore((s) => s.openPanel)
   return (
-    <div className="fadeable pointer-events-auto fixed right-4 bottom-6 z-20 flex gap-2.5 sm:right-7 max-sm:bottom-5 max-sm:left-4 max-sm:justify-between">
+    <div className="fadeable pointer-events-auto fixed right-4 bottom-[calc(24px+env(safe-area-inset-bottom))] z-20 flex gap-2.5 sm:right-7 max-sm:bottom-[calc(20px+env(safe-area-inset-bottom))] max-sm:left-4 max-sm:justify-between">
+      {/* no top navigation below lg: bikes are picked from here */}
+      <span className="contents lg:hidden">
+        <RoundButton label="Choose bike" onClick={() => openPanel('bikes')}>
+          <Bike size={18} strokeWidth={1.9} />
+        </RoundButton>
+      </span>
       <RoundButton label="Take a photo" onClick={takePhoto}>
         <Camera size={18} strokeWidth={1.9} />
       </RoundButton>
@@ -293,6 +300,7 @@ export default function Interface() {
     let t
     const wake = (e) => {
       if (e?.type === 'keydown' && RIDING_KEYS.has(e.key?.toLowerCase())) return
+      if (e?.target?.closest?.('[data-drive]')) return
       if (useStore.getState().uiHidden) useStore.setState({ uiHidden: false })
       clearTimeout(t)
       t = setTimeout(() => {
@@ -383,6 +391,7 @@ export default function Interface() {
       <StatusCards />
       <TripPill />
       <MusicCard />
+      <TouchControls />
       <Actions />
       <Panels />
     </div>

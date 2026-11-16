@@ -18,18 +18,20 @@ import { SCENES, SCENE_MAP, DEFAULT_SCENE } from '../data/scenes'
 import { TIME_MAP } from '../data/times'
 import { artworkFor } from '../data/artwork'
 
-// which image to show and whether it's already a painting (and includes the bike)
+// which image to show, and whether it already includes the bike
 function useBackdropSource() {
   const scene = useScene()
   const bikeId = useStore((s) => s.bikeId)
   const art = artworkFor(scene.id, bikeId)
-  return { scene, src: art?.src ?? scene.still, full: !!art?.full, painted: !!art?.painted }
+  return { scene, src: art?.src ?? scene.still, full: !!art?.full }
 }
 
 // development only: ?raw shows the scene without the painterly grade, ?shot hides the bike
 const params = import.meta.env.DEV ? new URLSearchParams(location.search) : new URLSearchParams()
 const RAW = params.has('raw')
 const SHOT = params.has('shot')
+// phones and tablets: lighter shadows (see main.jsx)
+const TOUCH = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches
 const useScene = () => SCENE_MAP[useStore((s) => s.sceneId)] ?? DEFAULT_SCENE
 
 // The scene still, drawn full-screen behind the bike (with rain / mist).
@@ -134,7 +136,7 @@ function Lights() {
         color={T.sun.color}
         intensity={T.sun.intensity * dim}
         castShadow
-        shadow-mapSize={[2048, 2048]}
+        shadow-mapSize={TOUCH ? [1024, 1024] : [2048, 2048]}
         shadow-camera-left={-0.8}
         shadow-camera-right={0.8}
         shadow-camera-top={0.8}
@@ -215,25 +217,27 @@ function CockpitRig() {
 }
 
 function Driver() {
-  const { scene, src, painted } = useBackdropSource()
-  const { gl } = useThree()
+  const { scene, src } = useBackdropSource()
+  const sceneReady = useStore((s) => s.sceneReady)
   const bikeId = useStore((s) => s.bikeId)
   useFrame((_, dt) => {
     ride.step(Math.min(dt, 0.1), BIKE_MAP[bikeId], scene.cruise)
     sound.update()
   })
   useEffect(() => {
-    stage.gl = gl
-    footage.show(scene, src, { paint: !painted })
-  }, [scene, src, painted, gl])
+    footage.show(scene, src)
+  }, [scene, src])
+  // the other scenes download only after the first one is on screen
   useEffect(() => {
-    footage.preload(SCENES.map((s) => s.still))
-  }, [])
+    if (!sceneReady) return
+    const t = setTimeout(() => footage.preload(SCENES.map((s) => s.still)), 4000)
+    return () => clearTimeout(t)
+  }, [sceneReady])
   return null
 }
 
 // Final look: tone mapping → illustrator's grade (per time of day). The scenery
-// is already painted (prepaint.js) and animated by the living-picture layer.
+// is already painted (baked by tools/bake.html) and animated by the living-picture layer.
 function Painting() {
   const { scene } = useBackdropSource()
   const time = useStore((s) => s.time)
