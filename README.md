@@ -28,7 +28,16 @@ npm install
 npm run dev
 ```
 
-Built with React, Three.js (React Three Fiber), Vite and Tailwind CSS.
+## Tech stack
+
+| Area | Tools |
+| --- | --- |
+| UI | [React 19](https://react.dev), [Tailwind CSS 4](https://tailwindcss.com), [Lucide](https://lucide.dev) icons |
+| 3D & graphics | [Three.js](https://threejs.org), [React Three Fiber](https://r3f.docs.pmnd.rs), [Drei](https://drei.docs.pmnd.rs), [postprocessing](https://github.com/pmndrs/postprocessing), custom GLSL shaders |
+| Animation | [GSAP](https://gsap.com) |
+| State | [Zustand](https://zustand.docs.pmnd.rs) |
+| Audio | Web Audio API (engine and ambience mixing), [Spotify iFrame API](https://developer.spotify.com/documentation/embeds) for music |
+| Build & hosting | [Vite](https://vite.dev), [Vercel](https://vercel.com) |
 
 ## Credits
 
