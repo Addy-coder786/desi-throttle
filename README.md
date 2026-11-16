@@ -2,6 +2,8 @@
 
 > *Raaste Apne, Andaaz Apna.*
 
+**🏍️ Ride it live: [desi-throttle.vercel.app](https://desi-throttle.vercel.app/)**
+
 A fun little side project: a first-person motorcycle ride through painted Indian roads, from Pangong Tso and Spiti to the Chikmagalur ghats, with a road-trip playlist playing.
 
 Pick from six bikes (Royal Enfield Classic 350, Himalayan 450 and Continental GT 650, KTM 390 Duke, Ducati Panigale V4, Triumph Street Triple), change the weather and time of day, and ride.
