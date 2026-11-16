@@ -1,0 +1,18 @@
+# dependencies and build output
+node_modules
+dist
+
+# environment and local deploy settings
+.env
+.env.*
+.vercel
+
+# your own song files (copyrighted, never committed)
+public/music/
+
+# editor and OS files
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+*.log

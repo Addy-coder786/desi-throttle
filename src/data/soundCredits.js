@@ -1,0 +1,21 @@
+// Engine and ambience recordings. Freesound previews and one Pixabay file.
+export const SOUND_CREDITS = [
+  { title: 'Royal Enfield Interceptor 650 idle', author: 'Singular_Estudio', licence: 'CC0', source: 'https://freesound.org/people/Singular_Estudio/sounds/544617/' },
+  { title: 'Royal Enfield Continental GT 650 revs', author: 'sementesonora', licence: 'CC0', source: 'https://freesound.org/people/sementesonora/sounds/825379/' },
+  { title: 'Onboard parallel-twin cruise (Triumph Bonneville Speedmaster, stands in for the GT 650)', author: 'fluctuating_frequency', licence: 'CC0', source: 'https://freesound.org/people/fluctuating_frequency/sounds/622420/' },
+  { title: 'Ducati Panigale V4 idle & revs', author: 'rsn267', licence: 'CC0', source: 'https://freesound.org/people/rsn267/sounds/584115/' },
+  { title: '“VFR1200FD.mp3”, V4 cruise (Honda VFR1200F, stands in for the Panigale)', author: 'VFR1200FD', licence: 'CC BY 3.0', source: 'https://freesound.org/s/245449/' },
+  { title: 'Inline-triple idle & revs (Triumph Rocket 3, stands in for the Street Triple)', author: 'rsn267', licence: 'CC0', source: 'https://freesound.org/people/rsn267/sounds/584586/' },
+  { title: 'Inline-triple cruise (tagged MT-09, stands in for the Street Triple)', author: 'Pixabay user u_mhcrj9o8m3', licence: 'Pixabay Content License', source: 'https://pixabay.com/sound-effects/city-mt9-163936/' },
+  { title: '“bull1.mp3”, 1970 Royal Enfield Bullet idle (Classic 350 idle)', author: 'ashimda', licence: 'CC0', source: 'https://freesound.org/people/ashimda/sounds/159326/' },
+  { title: '“BulletSilencer.wav”, 1991 Royal Enfield Bullet at held throttle (Classic 350 cruise)', author: 'absent1010', licence: 'CC BY 4.0', source: 'https://freesound.org/s/195655/' },
+  { title: '“350cc bike firing”, Royal Enfield Classic 350 revs', author: 'rsn267', licence: 'CC0', source: 'https://freesound.org/people/rsn267/sounds/274962/' },
+  { title: 'Single Cylinder Motorcycle (Honda CRF250, stands in for the Himalayan idle & revs)', author: 'richwise', licence: 'CC0', source: 'https://freesound.org/people/richwise/sounds/361407/' },
+  { title: 'Suzuki DR-Z400 starts (stands in for the 390 Duke idle & revs)', author: 'Flares.fr', licence: 'CC0', source: 'https://freesound.org/people/Flares.fr/sounds/671044/' },
+  { title: 'NS200 Bike Driving (Bajaj Pulsar NS200, stands in for the 390 Duke and Himalayan cruise)', author: 'Soundque Productions', licence: 'Pixabay Content License', source: 'https://pixabay.com/sound-effects/city-ns200-bike-driving-soundque-field-recording-447725/' },
+  { title: 'Rain heavy 2 (rural)', author: 'jmbphilmes', licence: 'CC0', source: 'https://freesound.org/people/jmbphilmes/sounds/200272/' },
+  { title: 'Air over mic (riding wind)', author: 'cognito perceptu', licence: 'CC0', source: 'https://freesound.org/people/cognito%20perceptu/sounds/20108/' },
+  { title: 'Mountain wind, Swiss Alps', author: 'kyles', licence: 'CC0', source: 'https://freesound.org/people/kyles/sounds/454092/' },
+  { title: 'North India countryside birds', author: 'Audiobaaz911', licence: 'CC0', source: 'https://freesound.org/people/Audiobaaz911/sounds/690626/' },
+  { title: 'Mountain river', author: 'Auxide_Audio', licence: 'CC0', source: 'https://freesound.org/people/Auxide_Audio/sounds/588180/' },
+]

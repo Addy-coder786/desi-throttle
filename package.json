@@ -1,0 +1,29 @@
+{
+  "name": "desi-throttle",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "देसी THROTTLE — an immersive first-person motorcycle ride across India. Raaste Apne, Andaaz Apna.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@react-three/drei": "10.7.9",
+    "@react-three/fiber": "9.8.2",
+    "@react-three/postprocessing": "3.2.2",
+    "gsap": "3.15.1",
+    "lucide-react": "1.73.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "three": "0.187.0",
+    "zustand": "5.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.3.5",
+    "@vitejs/plugin-react": "6.3.0",
+    "tailwindcss": "4.3.5",
+    "vite": "8.3.8"
+  }
+}
